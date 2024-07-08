@@ -1,5 +1,7 @@
 ﻿using FeriaDeLibro.Data.Interfaces;
+using FeriaDeLibro.Entities.Errors;
 using FeriaDeLibro.Entities.Models;
+using FeriaDeLibro.Entities.MyExceptions;
 using FeriaDeLibro.Service.Auth;
 using FeriaDeLibro.Service.Interfaces;
 using System;
@@ -19,12 +21,12 @@ namespace FeriaDeLibro.Service.Implements
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
         }
-        public bool Register(string username, string password)
+        public Result<bool> Register(string username, string password)
         {
             var userDb = _userRepository.GetUserByName(username);
             if (userDb == null)
             {
-                return false; // no existe usuario
+                return Result<bool>.Failed("El usuario no existe"); // no existe usuario
             }
             try
             {
@@ -42,19 +44,57 @@ namespace FeriaDeLibro.Service.Implements
 
                 if (!_userRepository.AddUser(user))
                 {
-                    return false;
+                    return Result<bool>.Failed("Falla al registrar el usuario. Inténtelo más tarde.");
                 }
 
-                return true;
-            }catch (Exception ex)  // capturar excepcion de hashing
+                return Result<bool>.Success(true);
+            }
+            catch (HashProcedureException ex)  // capturar excepcion de hashing
             {
-                return false;
+                throw new HashProcedureException("Error al crear la contraseña");
+                //return Result<bool>.Failed()false;
+            }
+            catch (Exception ex)  
+            {
+                
+                throw ex;
             }
         }
 
-        public bool Verify(string username, string password)
+        public Result<int> Verify(string username, string actualpassword)
         {
-            throw new NotImplementedException();
+            var userDb = _userRepository.GetUserByName(username);
+            if (userDb != null)
+            {
+                var passwordDb = userDb.Password;
+                var saltDb = userDb.Salt;
+
+                var byteSalt= Convert.FromBase64String(saltDb);
+                try
+                {
+                    // hasheo de contraseña ingresada + salt de la bd
+                    var resultPassword = _passwordHasher.GenerateHashPassword(actualpassword, byteSalt);
+                    // lo pasamos a string
+                    var stringResultPassword = Convert.ToBase64String(resultPassword);
+                    // compara strigns de ambas contraseñas
+                    if (stringResultPassword == passwordDb)
+                    {
+                        return Result<int>.Success(0); // camino correcto
+                    }
+                    else
+                    {
+                        return Result<int>.Failed(1,"Contraseña incorrecta"); // contraseña incorrecta
+                    }
+                }
+                catch (HashProcedureException ex){
+                    throw new HashProcedureException($"Falla al verificar tu contraseña {username} ");
+                } 
+                
+            }
+            else
+            {
+                return Result<int>.Failed(2,"Nombre de usuario incorrecto"); // username incorrect
+            }
         }
     }
 }

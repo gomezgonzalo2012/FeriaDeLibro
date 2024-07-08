@@ -25,11 +25,7 @@ namespace FeriaDeLibro.Service.Auth
             return hashedBytes;
 
         }
-        public string HashPassword2Hex(string password, byte[] salt)
-        {
-            return Convert.ToBase64String(GenerateHashPassword(password, salt));
-
-        }
+        
 
         public byte[] GenerateSalt()
         {

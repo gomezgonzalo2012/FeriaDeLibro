@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeriaDeLibro.Entities.Errors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace FeriaDeLibro.Service.Interfaces
 {
     public interface ILoginService
     {
-        bool Register(string username, string password);
-        bool Verify(string username, string password);
+        Result<bool> Register(string username, string password);
+        Result<int> Verify(string username, string password);
     }
 }

@@ -14,9 +14,9 @@ namespace FeriaDeLibro.Entities.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EventId { get; set; }
+
         public string? Name { get; set; }
-        [Column(name: "Instituto")]
-        public string? Institute {  get; set; }
+        
         [DataType(DataType.Date)]
         [Column(name: "Fecha")]
         public DateOnly EventDate { get; set; }
@@ -25,7 +25,11 @@ namespace FeriaDeLibro.Entities.Models
         public TimeOnly EventTime { get; set; }
         [Column(name: "Descripcion")]
         public string? EventDescription { get; set; }
-        public string? Image {  get; set; }
+        public string Image {  get; set; }
+        //public byte[] Image {  get; set; }
+        [ForeignKey(nameof(Course))]
+        public int CourseId {  get; set; }
+        public Course Course { get; set; }
 
 
     }

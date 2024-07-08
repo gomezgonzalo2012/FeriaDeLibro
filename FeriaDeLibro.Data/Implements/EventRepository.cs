@@ -14,11 +14,19 @@ namespace FeriaDeLibro.Data.Implements
     {
         private readonly FeriaDeLibroContext _feriaDeLibroContext;
         private readonly ILogger<EventRepository> _logger;
+
+        public EventRepository(FeriaDeLibroContext feriaDeLibroContext, ILogger<EventRepository> logger)
+        {
+            _feriaDeLibroContext = feriaDeLibroContext;
+            _logger = logger;
+        }
+
         public bool AddEvent(Event evento)
         {
             try
             {
                 _feriaDeLibroContext.Events.Add(evento);
+                _feriaDeLibroContext.SaveChanges();
                 return true;
             }catch(DbUpdateException ex) { 
                 _logger.LogError(ex.Message);
@@ -51,7 +59,8 @@ namespace FeriaDeLibro.Data.Implements
             try
             {
                 var currentDate= DateOnly.FromDateTime(DateTime.Now);
-                return _feriaDeLibroContext.Events.Where(ev => ev.EventDate > currentDate).ToList();
+                // retorna eventos futuros y ordenados por hora de evento
+                return _feriaDeLibroContext.Events.Where(ev => ev.EventDate > currentDate).OrderByDescending(x=> x.EventTime).ToList();
             }catch (InvalidOperationException ex)
             {
                 _logger.LogError(ex.Message); 
@@ -87,6 +96,10 @@ namespace FeriaDeLibro.Data.Implements
         {
             try
             {
+                if (evento == null)
+                {
+                    throw new ArgumentNullException(nameof(evento));
+                }
                 _feriaDeLibroContext.Events.Remove(evento);
                 _feriaDeLibroContext.SaveChanges();
                 return true;

@@ -1,0 +1,49 @@
+﻿
+
+@* Carousel de imagenes del courso *@
+<div id="carouselcontrol" class="carousel slide">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselcontrol" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselcontrol" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselcontrol" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner ">
+        <div class="carousel-item active ">
+            <img src="~/images/tecnicatura_destacada.jpeg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/img3.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/img2.webp" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselcontrol" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselcontrol" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+</br>
+@* Descripcion *@
+<div>
+    <div class="card w-100" @* style="width: 18rem; *@">
+        <div class="card-body">
+            <h5 class="card-title">Operador de Pc</h5> <!-- hacer uppercase -->
+            <h6 class="card-subtitle mb-2 text-body-secondary">Duracion : 1 año</h6>
+            <p class="card-text">Requisitos: </p>
+            <ul>
+                <li class="card-text">Fotocopia DNI</li>
+                <li class="card-text">Titulo Secundario</li>
+                <li class="card-text">Partida de nacimiento</li>
+            </ul>
+            <p class="card-text">Descripción: Desarrollo de aplicaciones de tipo web, escritorio y mobile aplicando las mejores y mas modernas tecnologias del mercado.</p>
+
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+</div>

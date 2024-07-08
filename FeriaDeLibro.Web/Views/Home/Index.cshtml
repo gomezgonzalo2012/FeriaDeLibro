@@ -1,8 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model FeriaDeLibro.Web.Models.EventModel
+@{
+    ViewData["Title"] = "ITG - Eventos";
+    var counter = 0;
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@* --------------Contenido eventos-------------*@
+<div class="accordion" id="accordionPanelsStayOpenExample">
+    @foreach(var item in Model.Events)
+    {
+        counter++;
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-@counter" aria-expanded="true" aria-controls="panelsStayOpen-collapse-@counter">
+                    @item.EventDate
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapse-@counter" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    @* Elemento card event*@
+                    <div class="card mb-3" style="max-width: 95%;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="@item.Image" class="img-fluid rounded-start" alt="...">@* Imagen *@
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Name</h5>
+                                    <p class="card-text">@item.EventDescription</p>
+                                    <p class="card-text"><small class="text-body-secondary">@item.EventTime</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    @* card end *@
+                </div>
+            </div>
+        </div>
+    }
 </div>

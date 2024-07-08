@@ -17,6 +17,11 @@
   <ItemGroup>
     <ProjectReference Include="..\FeriaDeLibro.Data\FeriaDeLibro.Data.csproj" />
     <ProjectReference Include="..\FeriaDeLibro.Entities\FeriaDeLibro.Entities.csproj" />
+    <ProjectReference Include="..\FeriaDeLibro.Service\FeriaDeLibro.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
