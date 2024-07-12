@@ -56,11 +56,12 @@ namespace FeriaDeLibro.Data.Implements
 
         public ICollection<Event> GetAllFutureEvents()
         {
-            try
+            try 
             {
                 var currentDate= DateOnly.FromDateTime(DateTime.Now);
-                // retorna eventos futuros y ordenados por hora de evento
-                return _feriaDeLibroContext.Events.Where(ev => ev.EventDate > currentDate).OrderByDescending(x=> x.EventTime).ToList();
+                // retorna eventos futuros y ordenados por hora de eve
+                // nto
+                return _feriaDeLibroContext.Events.Where(ev => ev.EventDate >= currentDate).OrderBy(x=> x.EventDate).ThenBy(x=> x.EventTime).ToList();
             }catch (InvalidOperationException ex)
             {
                 _logger.LogError(ex.Message); 

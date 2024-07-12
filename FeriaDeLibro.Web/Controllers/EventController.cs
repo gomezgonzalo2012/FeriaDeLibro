@@ -13,10 +13,12 @@ namespace FeriaDeLibro.Web.Controllers
     {
         private readonly IEventService _eventService;
         private readonly ICourseService _courseService;
-        public EventController (IEventService eventService, ICourseService courseService)
+        private readonly IImageUploadService _imageUploadService;
+        public EventController (IEventService eventService, ICourseService courseService, IImageUploadService imageService)
         {
             _eventService = eventService;
             _courseService = courseService;
+            _imageUploadService = imageService;
         }
         public IActionResult Start()
         {
@@ -54,7 +56,7 @@ namespace FeriaDeLibro.Web.Controllers
                     EventDate = eventModel.EventDate,
                     EventTime = eventModel.StartTime,
                     EventDescription = eventModel.Description,
-                    Image = " ",
+                    Image = _imageUploadService.SaveImage(eventModel.Image), // llama al servicio para guardar imagen
                     CourseId = eventModel.Curso.CourseId
                 };
                     var eventResult = _eventService.AddEvent(eventDB);

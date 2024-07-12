@@ -19,7 +19,9 @@ namespace FeriaDeLibro.Web.Models
         public string Course { get; set; }
         //public Course Course { get; set; }
         [DataType(DataType.Upload)]
-        public IFormFile Image { get; set; } /* DAto de tipo Imagen*/
+        [Required(ErrorMessage = "Imagen requerida.")]
+
+        public IFormFile Image { get; set; } /* Dato de tipo Imagen*/
         [Required(ErrorMessage ="Agrega descripción al evento.")]
         [StringLength(256, ErrorMessage = "El nombre del evento no puede tener más de 256 caracteres.")]
        
