@@ -9,11 +9,11 @@ namespace FeriaDeLibro.Data.Interfaces
 {
     public interface IEventRepository
     {
-        bool AddEvent(Event evento);
-        bool RemoveEvent(Event evento);
-        void UpdateEvent(Event evento);
-        Event GetEventById(int id);
-        ICollection<Event> GetAllEvents();
-        ICollection<Event> GetAllFutureEvents();
+        Task<bool> AddEvent(Event evento);
+        Task<bool> RemoveEvent(Event evento);
+        Task UpdateEvent(Event evento);
+        Task<Event> GetEventById(int id);
+        Task<ICollection<Event>> GetAllEvents();
+        Task<ICollection<Event>> GetAllFutureEvents();
     }
 }

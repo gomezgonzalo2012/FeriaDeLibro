@@ -9,7 +9,7 @@ namespace FeriaDeLibro.Service.Interfaces
 {
     public interface ICourseService
     {
-        Course GetCourseById(int id);
-        ICollection<Course> GetAllCourses();
+        Task<Course> GetCourseById(int id);
+        Task<ICollection<Course>> GetAllCourses();
     }
 }

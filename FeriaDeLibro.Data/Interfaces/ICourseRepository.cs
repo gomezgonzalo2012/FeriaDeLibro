@@ -9,7 +9,7 @@ namespace FeriaDeLibro.Data.Interfaces
 {
     public interface ICourseRepository
     {
-        Course GetCourseById(int id);
-        ICollection<Course> GetAllCourses();
+       Task <Course> GetCourseById(int id);
+        Task <ICollection<Course>> GetAllCourses();
     }
 }

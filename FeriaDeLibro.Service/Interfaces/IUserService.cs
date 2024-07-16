@@ -9,7 +9,7 @@ namespace FeriaDeLibro.Service.Interfaces
 {
     public interface IUserService
     {
-        User GetUserById(int id);
-        User GetUserByName(string name);
+        Task<User> GetUserById(int id);
+        Task<User> GetUserByName(string name);
     }
 }

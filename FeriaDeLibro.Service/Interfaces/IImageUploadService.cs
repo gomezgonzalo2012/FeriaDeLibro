@@ -9,8 +9,7 @@ namespace FeriaDeLibro.Service.Interfaces
 {
     public interface IImageUploadService
     {
-        string SaveImage( IFormFile image);
-        IFormFile GetImage(string filePath);
+        Task<string> SaveImage(IFormFile image);
     }
 
 }

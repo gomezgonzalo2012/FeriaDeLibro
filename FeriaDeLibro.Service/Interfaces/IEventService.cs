@@ -10,11 +10,11 @@ namespace FeriaDeLibro.Service.Interfaces
 {
     public interface IEventService
     {
-        Result<bool> AddEvent(Event evento);
-        void RemoveEvent(Event evento);
-        Event GetEventById(int id);
-        ICollection<Event> GetAllEvents();
-        ICollection<Event> GetAllFutureEvents();
-        void UpdateEvent(Event evento);
+        Task<Result<bool>> AddEvent(Event evento);
+        Task RemoveEvent(Event evento);
+        Task<Event> GetEventById(int id);
+        Task<ICollection<Event>> GetAllEvents();
+        Task<ICollection<Event>> GetAllFutureEvents();
+        Task UpdateEvent(Event evento);
     }
 }

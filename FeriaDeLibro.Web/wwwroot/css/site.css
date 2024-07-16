@@ -18,7 +18,10 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    /*background-image: url("../images/BackgroundBlue.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;*/
 }
 
 /* Estilo general para el fondo */
@@ -37,7 +40,7 @@ header {
 
     header .navbar-brand {
         /*color: #007BFF;*/
-        color: #F0F2F5;
+        /*color: #F0F2F5;*/
         font-size: 1.5rem;
         font-weight: bold;
     }
@@ -86,6 +89,7 @@ form {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /*backdrop-filter: blur(5px)*/
 }
 
 input[type="text"], input[type="email"], input[type="password"], textarea {
@@ -102,7 +106,7 @@ input[type="text"], input[type="email"], input[type="password"], textarea {
     }
 
 /* Labels */
-label {
+    label {
     font-weight: bold;
     color: #333333;
 }
@@ -158,3 +162,21 @@ label {
         flex-wrap: nowrap;
     }
 }*/
+
+@media (max-width: 1000px) {
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .btn-container form {
+            width: 100%; /* O puedes ajustar según sea necesario */
+            margin-bottom: 10px; /* Espacio entre los botones */
+        }
+
+            .btn-container form:last-child {
+                margin-bottom: 0; /* Sin margen en el último botón */
+            }
+}
+

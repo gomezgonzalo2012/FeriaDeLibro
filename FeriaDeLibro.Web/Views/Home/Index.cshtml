@@ -2,39 +2,69 @@
 @{
     ViewData["Title"] = "ITG - Eventos";
     var counter = 0;
+    var today = DateOnly.FromDateTime(DateTime.Now);
 }
 @* --------------Contenido eventos-------------*@
+<h3 class="card-title">Eventos del Instituto Tencológico Goya.</h3> <!-- hacer uppercase -->
+</hr>
+
 <div class="accordion" id="accordionPanelsStayOpenExample">
-    @foreach(var item in Model.Events)
+    @if(Model.Events.Count() == 0 ){
+        <div class="alert alert-primary" role="alert">
+            No hay eventos próximos.
+        </div>
+    }
+    else
     {
-        counter++;
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-@counter" aria-expanded="true" aria-controls="panelsStayOpen-collapse-@counter">
-                    @item.EventDate
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapse-@counter" class="accordion-collapse collapse show">
-                <div class="accordion-body">
-                    @* Elemento card event*@
-                    <div class="card mb-3" style="max-width: 95%;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="@item.Image" class="img-fluid rounded-start card-img"  alt="...">@* Imagen *@
-                                @* <img src="@item.Image" class="img-fluid rounded-start" alt="...">@* Imagen *@ 
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">@item.Name</h5>
-                                    <p class="card-text">@item.EventDescription</p>
-                                    <p class="card-text"><small class="text-body-secondary">@item.EventTime</small></p>
+        @foreach (var item in Model.Events)
+        {
+            counter++;
+            <div class="accordion-item">
+
+
+                @if (item.EventDate < today)
+                {
+                    <h2 class="accordion-header">
+                        <button class="accordion-button alert alert-danger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-@counter" aria-expanded="true" aria-controls="panelsStayOpen-collapse-@counter">
+                            @item.EventDate.ToString("dddd dd \\de  MMM yyyy")
+                        </button>
+                    </h2>
+
+                }
+                else
+                {
+                    <h2>
+
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-@counter" aria-expanded="true" aria-controls="panelsStayOpen-collapse-@counter">
+                            @item.EventDate.ToString("dddd dd \\de  MMM yyyy")
+                        </button>
+                    </h2>
+
+                }
+
+                <div id="panelsStayOpen-collapse-@counter" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        @* Elemento card event*@
+                        <div class="card mb-3" style="max-width: 95%;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="@item.Image" class="img-fluid rounded-start card-img" alt="...">@* Imagen *@
+                                    @* <img src="@item.Image" class="img-fluid rounded-start" alt="...">@* Imagen *@
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@item.Name</h5>
+                                        <p class="card-text">@item.EventDescription</p>
+                                        <p class="card-text"><small class="text-body-secondary">Hora: @item.EventTime</small></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                    @* card end *@
+                        @* card end *@
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
+
 </div>

@@ -9,7 +9,7 @@ namespace FeriaDeLibro.Service.Interfaces
 {
     public interface ILoginService
     {
-        Result<bool> Register(string username, string password);
-        Result<int> Verify(string username, string password);
+        Task<Result<bool>> Register(string username, string password);
+        Task<Result<int>> Verify(string username, string password);
     }
 }

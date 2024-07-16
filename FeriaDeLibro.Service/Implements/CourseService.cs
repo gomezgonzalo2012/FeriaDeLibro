@@ -17,14 +17,14 @@ namespace FeriaDeLibro.Service.Implements
             _courseRepository = courseRepository;
         }
 
-        public ICollection<Course> GetAllCourses()
+        public async Task<ICollection<Course>> GetAllCourses()
         {
-            return _courseRepository.GetAllCourses();
+            return await _courseRepository.GetAllCourses();
         }
 
-        public Course GetCourseById(int id)
+        public async Task<Course> GetCourseById(int id)
         {
-            return _courseRepository.GetCourseById(id);
+            return await _courseRepository.GetCourseById(id);
         }
     }
 }

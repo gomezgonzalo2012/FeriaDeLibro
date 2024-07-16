@@ -9,9 +9,10 @@ namespace FeriaDeLibro.Data.Interfaces
 {
     public interface IUserRepository
     {
-        bool AddUser (User user);
-        User GetUserByName (string name);
-        User GetUserById (int id);
+        
+        Task<bool> AddUser (User user);
+        Task<User> GetUserByName (string name);
+        Task<User> GetUserById (int id);
 
     }
 }

@@ -15,6 +15,7 @@ namespace FeriaDeLibro.Entities.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CourseId { get; set; }
         public string? CourseName { get; set; }
-        public ICollection<Event> CourseEvents { get; set; }
+
+        public ICollection<Event>? CourseEvents { get; set; }
     }
 }

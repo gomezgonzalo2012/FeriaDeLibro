@@ -16,14 +16,14 @@ namespace FeriaDeLibro.Service.Implements
         {
             _userRepository = userRepository;
         }
-        public User GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
-            return _userRepository.GetUserById(id); 
+            return await _userRepository.GetUserById(id); 
         }
 
-        public User GetUserByName(string name)
+        public async Task<User> GetUserByName(string name)
         {
-            return _userRepository.GetUserByName(name);
+            return await _userRepository.GetUserByName(name);
         }
     }
 }

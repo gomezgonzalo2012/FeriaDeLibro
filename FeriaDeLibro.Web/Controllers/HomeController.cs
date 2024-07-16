@@ -18,9 +18,9 @@ namespace FeriaDeLibro.Web.Controllers
             //_courseService = courseService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var futureEvents = _eventService.GetAllFutureEvents();
+            var futureEvents = await _eventService.GetAllFutureEvents();
             var eventsModel = new EventModel
             {
                 Events = futureEvents

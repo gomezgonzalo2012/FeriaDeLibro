@@ -19,38 +19,38 @@ namespace FeriaDeLibro.Service.Implements
             _eventRepository = eventRepository;
         }
 
-        public Result<bool> AddEvent(Event evento)
+        public async Task<Result<bool>> AddEvent(Event evento)
         {
             if (evento == null)
             {
                 return Result<bool>.Failed("Los datos del evento son incorrectos");
             }
-            return Result<bool>.Success(_eventRepository.AddEvent(evento));
+            return Result<bool>.Success(await _eventRepository.AddEvent(evento));
         }
 
-        public ICollection<Event> GetAllEvents()
+        public async Task<ICollection<Event>> GetAllEvents()
         {
-            return _eventRepository.GetAllEvents();
+            return await _eventRepository.GetAllEvents();
         }
 
-        public ICollection<Event> GetAllFutureEvents()
+        public async Task<ICollection<Event>> GetAllFutureEvents()
         {
-            return _eventRepository.GetAllFutureEvents();
+            return await _eventRepository.GetAllFutureEvents();
         }
 
-        public Event GetEventById(int id)
+        public async Task<Event> GetEventById(int id)
         {
-            return _eventRepository.GetEventById(id);
+            return await _eventRepository.GetEventById(id);
         }
 
-        public void RemoveEvent(Event evento)
+        public async Task RemoveEvent(Event evento)
         {
-            _eventRepository.RemoveEvent(evento);
+            await _eventRepository.RemoveEvent(evento);
         }
 
-        public void UpdateEvent(Event evento)
+        public async Task UpdateEvent(Event evento)
         {
-            _eventRepository.UpdateEvent(evento);
+            await _eventRepository.UpdateEvent(evento);
         }
     }
 }

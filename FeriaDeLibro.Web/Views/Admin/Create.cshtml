@@ -1,0 +1,74 @@
+﻿ @model FeriaDeLibro.Web.Models.SingleEventModel 
+@* @model FeriaDeLibro.Entities.Models.Event
+ *@@{
+    ViewData["Title"] = "Crear evento";
+}
+<title>@ViewData["Title"]</title>
+<h1>Crear Evento</h1>
+<hr />
+<div class="row justify-content-center">
+    @if (ViewBag.SuccessMessage != null) // captura mensaje desde el controlador
+    {
+        <div class="alert alert-success text-center">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+    <div class="col-md-8">
+        <form asp-controller="Event" asp-action="Create" method="post" enctype="multipart/form-data"> <!-- cambiar -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="EventName" class="form-label">Nombre del evento</label>
+                <input asp-for="EventName" class="form-control">
+                <span asp-validation-for="EventName" class="text-danger"></span> <!-- mensaje de error-->
+            </div>
+            @* fecha *@
+            <div class="mb-3">
+                <label asp-for="EventDate" class="form-label">Fecha </label>
+                <input asp-for="EventDate" class="form-control" >
+                <span asp-validation-for="EventDate" class="text-danger"></span>
+            </div>
+            @* hora *@
+            <div class="mb-3">
+                <label asp-for="StartTime" class="form-label">Hora </label>
+                <input asp-for="StartTime" class="form-control">
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Curso" class="control-label">Curso</label>
+                @* Mostrar lista desplegable de cursos *@
+                @Html.DropDownListFor(model => model.Curso.CourseId, (IEnumerable<SelectListItem>)ViewBag.Courses, "-- Seleccione un curso --", new { @class = "form-control" })
+                <span asp-validation-for="Curso.CourseId" class="text-danger"></span>
+            </div>
+            @*Imagen*@
+            </br>
+            <div class="form-group mb-3">
+                <label asp-for="Image" class="form-label">Imagen </label>
+                <input asp-for="Image" type="file" class="form-control" id="inputGroupFile02">
+                @* <label class="input-group-text" for="inputGroupFile02">Subir</label> *@
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            </br>
+            @*Descripcion*@
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Descripcion</label>
+                <textarea asp-for="Description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Escribe una descripción"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear evento" class="btn btn-outline-primary form-control" />
+            </div>
+        </form>
+        @if (ViewBag.Alert != null)
+        {
+            <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert">
+                    &times;
+                </button>
+                <strong>Aviso!</strong> @ViewBag.Alert
+            </div>
+        }
+    </div>
+    
+</div>

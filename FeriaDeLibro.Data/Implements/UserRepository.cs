@@ -21,12 +21,12 @@ namespace FeriaDeLibro.Data.Implements
             _logger = logger;
         }
 
-        public bool AddUser(User user)
+        public async Task<bool> AddUser(User user)
         {
             try
             {
-                _feriaDeLibroContext.Users.Add(user);
-                _feriaDeLibroContext.SaveChanges();
+                await _feriaDeLibroContext.Users.AddAsync(user);
+                await _feriaDeLibroContext.SaveChangesAsync();
                 return true;
             }
             catch (DbUpdateException ex)
@@ -51,11 +51,11 @@ namespace FeriaDeLibro.Data.Implements
             }
         }
 
-        public User GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
             try
             {
-                return _feriaDeLibroContext.Users.FirstOrDefault(user => user.UserId.Equals(id));
+                return await _feriaDeLibroContext.Users.FirstOrDefaultAsync(user => user.UserId.Equals(id));
 
             }
             catch (InvalidOperationException ex)
@@ -71,11 +71,11 @@ namespace FeriaDeLibro.Data.Implements
 
         }
 
-        public User GetUserByName(string name)
+        public async Task<User> GetUserByName(string name)
         {
             try
             {
-                return _feriaDeLibroContext.Users.FirstOrDefault(user => user.Name.Equals(name));
+                return await _feriaDeLibroContext.Users.FirstOrDefaultAsync(user => user.Name.Equals(name));
 
             }
             catch (InvalidOperationException ex)

@@ -1,5 +1,6 @@
 ﻿using FeriaDeLibro.Data.Interfaces;
 using FeriaDeLibro.Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,14 @@ namespace FeriaDeLibro.Data.Implements
             _context = context;
 
         }
-        public ICollection<Course> GetAllCourses()
+        public async Task<ICollection<Course>> GetAllCourses()
         {
-            return _context.Courses.ToList();
+            return await _context.Courses.ToListAsync();
         }
 
-        public Course GetCourseById(int id)
+        public async Task<Course> GetCourseById(int id)
         {
-            return _context.Courses.FirstOrDefault(x=> x.CourseId == id);
+            return await _context.Courses.FirstOrDefaultAsync(x=> x.CourseId == id);
         }
     }
 }

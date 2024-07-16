@@ -30,12 +30,12 @@ namespace FeriaDeLibro.Web.Controllers
             return RedirectToAction("Start", "Login");
         }
         [HttpPost]
-        public IActionResult Validate(LoginModel model)
+        public async Task<IActionResult> Validate(LoginModel model)
         {
             if(ModelState.IsValid)
             {
-                var result = _loginService.Verify(model.UserName, model.Password);
-                var userDb = _userService.GetUserByName(model.UserName);
+                var result = await _loginService.Verify(model.UserName, model.Password);
+                var userDb = await _userService.GetUserByName(model.UserName);
                 if(result.IsSucces)
                 {
                     HttpContext.Session.SetObject("UsuarioModel", userDb);

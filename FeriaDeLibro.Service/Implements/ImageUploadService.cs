@@ -11,32 +11,12 @@ namespace FeriaDeLibro.Service.Implements
 {
     public class ImageUploadService : IImageUploadService
     {
-        public IFormFile GetImage(string filePath)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public string SaveImage(IFormFile image)
-        //{
-        //    var path = String.Empty;
-        //    if (image.Length > 0)
-        //    {
-        //        // renombrando el archivo
-        //        // Guid (Global Unique Identifier) genera un numero unico para asegurar que los nombres de imagen sean distintos
-        //        var fileName = Guid.NewGuid().ToString()+ ".jpg";
-        //        path = $"/wwwroot/images/incoming/{fileName}";
-        //        using(var stream = new FileStream(path, FileMode.Create))
-        //        {
-        //            image.CopyTo(stream);
-        //        }
-        //    } 
-        //    return path;
-        //}
-        public string SaveImage(IFormFile image)
+        
+        public async Task<string> SaveImage(IFormFile image)
         {
             var path = String.Empty;
             var fileName = String.Empty;
-            if (image.Length > 0)
+               if (image.Length > 0)
             {
                 // renombrando el archivo
                 // Guid (Global Unique Identifier) genera un numero unico para asegurar que los nombres de imagen sean distintos
@@ -52,7 +32,7 @@ namespace FeriaDeLibro.Service.Implements
 
                 // Combinar el nombre del archivo con la ruta del directorio
                 path = Path.Combine(directoryPath, fileName);
-                using (var stream = new FileStream(path, FileMode.Create))
+                await using (var stream = new FileStream(path, FileMode.Create))
                 {
                     image.CopyTo(stream);
                 }

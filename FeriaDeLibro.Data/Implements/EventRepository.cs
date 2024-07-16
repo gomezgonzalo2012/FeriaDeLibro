@@ -21,12 +21,12 @@ namespace FeriaDeLibro.Data.Implements
             _logger = logger;
         }
 
-        public bool AddEvent(Event evento)
+        public async Task<bool> AddEvent(Event evento)
         {
             try
             {
-                _feriaDeLibroContext.Events.Add(evento);
-                _feriaDeLibroContext.SaveChanges();
+                await _feriaDeLibroContext.Events.AddAsync(evento);
+                await _feriaDeLibroContext.SaveChangesAsync();
                 return true;
             }catch(DbUpdateException ex) { 
                 _logger.LogError(ex.Message);
@@ -48,20 +48,20 @@ namespace FeriaDeLibro.Data.Implements
                 return false;
             }
         }
-
-        public ICollection<Event> GetAllEvents()
+        
+        public async Task<ICollection<Event>> GetAllEvents()
         {
-            return _feriaDeLibroContext.Events.ToList();
+            return await _feriaDeLibroContext.Events.Include("Course")?.OrderByDescending(x => x.EventDate).ToListAsync();
         }
 
-        public ICollection<Event> GetAllFutureEvents()
+        public async Task<ICollection<Event>> GetAllFutureEvents()
         {
             try 
             {
                 var currentDate= DateOnly.FromDateTime(DateTime.Now);
                 // retorna eventos futuros y ordenados por hora de eve
                 // nto
-                return _feriaDeLibroContext.Events.Where(ev => ev.EventDate >= currentDate).OrderBy(x=> x.EventDate).ThenBy(x=> x.EventTime).ToList();
+                return await _feriaDeLibroContext.Events.Where(ev => ev.EventDate >= currentDate.AddDays(-1)).OrderByDescending(x=> x.EventDate).ThenBy(x=> x.EventTime).ToListAsync();
             }catch (InvalidOperationException ex)
             {
                 _logger.LogError(ex.Message); 
@@ -75,11 +75,11 @@ namespace FeriaDeLibro.Data.Implements
 
         }
 
-        public Event GetEventById(int id)
+        public async Task<Event> GetEventById(int id)
         {
             try
             {
-                return _feriaDeLibroContext.Events.FirstOrDefault(ev => ev.EventId.Equals(id));
+                return await _feriaDeLibroContext.Events.Include("Course")?.FirstOrDefaultAsync(ev => ev.EventId.Equals(id));
             }
             catch (InvalidOperationException ex)
             {
@@ -93,7 +93,7 @@ namespace FeriaDeLibro.Data.Implements
             }
         }
 
-        public bool RemoveEvent(Event evento)
+        public async Task<bool> RemoveEvent(Event evento)
         {
             try
             {
@@ -101,8 +101,8 @@ namespace FeriaDeLibro.Data.Implements
                 {
                     throw new ArgumentNullException(nameof(evento));
                 }
-                _feriaDeLibroContext.Events.Remove(evento);
-                _feriaDeLibroContext.SaveChanges();
+                 _feriaDeLibroContext.Events.Remove(evento);
+                await _feriaDeLibroContext.SaveChangesAsync();
                 return true;
             }
             catch (DbUpdateException ex)
@@ -127,12 +127,14 @@ namespace FeriaDeLibro.Data.Implements
             }
         }
 
-        public void UpdateEvent(Event evento)
+        public async Task UpdateEvent(Event evento)
         {
             try
             {
-                _feriaDeLibroContext.Events.Update(evento);
-                _feriaDeLibroContext.SaveChanges();
+                _feriaDeLibroContext.Attach(evento);
+                //_feriaDeLibroContext.Events.Update(evento);
+                _feriaDeLibroContext.Entry(evento).State = EntityState.Modified;
+                await _feriaDeLibroContext.SaveChangesAsync();
                 
             }
             catch (DbUpdateException ex)

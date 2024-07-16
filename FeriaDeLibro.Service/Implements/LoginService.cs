@@ -21,9 +21,9 @@ namespace FeriaDeLibro.Service.Implements
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
         }
-        public Result<bool> Register(string username, string password)
+        public async Task<Result<bool>> Register(string username, string password)
         {
-            var userDb = _userRepository.GetUserByName(username);
+            var userDb = await _userRepository.GetUserByName(username);
             if (userDb == null)
             {
                 return Result<bool>.Failed("El usuario no existe"); // no existe usuario
@@ -42,7 +42,7 @@ namespace FeriaDeLibro.Service.Implements
                     Salt = Convert.ToBase64String(salt)
                 };
 
-                if (!_userRepository.AddUser(user))
+                if (!await _userRepository.AddUser(user))
                 {
                     return Result<bool>.Failed("Falla al registrar el usuario. Inténtelo más tarde.");
                 }
@@ -61,9 +61,9 @@ namespace FeriaDeLibro.Service.Implements
             }
         }
 
-        public Result<int> Verify(string username, string actualpassword)
+        public async Task<Result<int>> Verify(string username, string actualpassword)
         {
-            var userDb = _userRepository.GetUserByName(username);
+            var userDb = await _userRepository.GetUserByName(username);
             if (userDb != null)
             {
                 var passwordDb = userDb.Password;
