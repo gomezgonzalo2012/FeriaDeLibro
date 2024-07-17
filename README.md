@@ -13,16 +13,16 @@ This project was implemented in a real-life scenario as part of a sample for the
 
 ### Functionalities:
 ## Login
-![Login screeshot](image.png)
+![Login screeshot](readme_src/image.png)
 ## Admin panel
-![Admin Panel](image-3.png)
+![Admin Panel](readme_src/image-3.png)
 ### create
-![Create Event](image-1.png)
+![Create Event](readme_src/image-1.png)
 ### edit
-![Edit Event](image-5.png)
+![Edit Event](readme_src/image-5.png)
 ## Home - Events
-![Home web view](image-2.png)
+![Home web view](readme_src/image-2.png)
 ## Courses details
-![alt text](image-4.png)
+![alt text](readme_src/image-4.png)
 
 ### (Deployed in Azure Cloud Service)
